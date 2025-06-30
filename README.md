@@ -75,7 +75,7 @@ docker push your-dockerhub-username/hello-fastapi:secure
 Replace your-dockerhub-username with your actual Docker Hub ID
 
 
-deployment.yaml file
+```deployment.yaml file
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -105,7 +105,7 @@ spec:
 
 
 service.yaml file
-apiVersion: v1
+```apiVersion: v1
 kind: Service
 metadata:
   name: hello-service
