@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: hello-container
-        image: macdee3030/hello-fastapi:latest
+        image: macdee3030/hello-fastapi:secure 
         ports:
         - containerPort: 8000
         resources:
