@@ -54,9 +54,12 @@ fastapi
 uvicorn
 
 
-Build & Run Locally
-docker build -t hello-fastapi .
-docker run -p 8000:8000 hello-fastapi
+Build & Run Locally to test
+docker build -t hello-fastapi:secure .
+docker run -p 8000:8000 hello-fastapi:secure
+
+run this command to scan for vulnerabilities before pushing to dockerhub registry
+-trivy image hello-fastapi:secure
 
 
 Go to: http://localhost:8000/status
@@ -64,8 +67,10 @@ Go to: http://localhost:8000/status
 
 2. Build and Push Docker Image to Docker Hub
 
-docker build -t your-dockerhub-username/hello-fastapi .
-docker push your-dockerhub-username/hello-fastapi
+docker login -  write your username and password 
+
+docker build -t your-dockerhub-username/hello-fastapi:secure .
+docker push your-dockerhub-username/hello-fastapi:secure
 
 Replace your-dockerhub-username with your actual Docker Hub ID
 
@@ -87,7 +92,7 @@ spec:
     spec:
       containers:
       - name: hello-container
-        image: macdee3030/hello-fastapi:latest
+        image: macdee3030/hello-fastapi:secure
         ports:
         - containerPort: 8000
         resources:
@@ -110,9 +115,19 @@ spec:
     app: hello-app
   ports:
     - protocol: TCP
-      port: 80
+      port: 8000
       targetPort: 8000
 
+Deploy It
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+
+
+check  running pods
+kubectl get pods
+
+to run the app locally on port 8000
+-kubectl port-forward service/hello-service 8000:8000 
 
 
 
